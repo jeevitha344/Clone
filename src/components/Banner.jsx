@@ -21,6 +21,7 @@ fetchData();
 },[])
 
 console.log(movie)
+ if (!movie?.backdrop_path) return null;
   return (
     <div>
       <img src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}   alt={movie?.title}
