@@ -3,7 +3,7 @@ import axios from '../helper/axios'
 import requests from '../helper/request'
 
 const Banner = () => {
-        const[movie,setMovie]=useState([]);
+        const[movie,setMovie]=useState(null);
         useEffect(()=>{
               const fetchData= async() => {
               const request = await axios.get(requests.fetchNetflixOriginals)
@@ -21,7 +21,7 @@ fetchData();
 console.log(movie)
   return (
     <div>
-      <img src={`https://image.tmdb.org/t/p/original/${movie?.backdrop_path}`}   alt={movie?.title}
+      <img src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}   alt={movie?.title}
   className="w-full h-[80vh] object-cover object-center " />
 
     </div>
