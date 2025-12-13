@@ -8,7 +8,7 @@ const Banner = () => {
               const fetchData= async() => {
               const request = await axios.get(requests.fetchNetflixOriginals)
               console.log(request)
-               const results = res.data?.results;
+               const results = request.data?.results;
         if (!results || results.length === 0) return;
 setMovie(
   request.data.results[
