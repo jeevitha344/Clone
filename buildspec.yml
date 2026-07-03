@@ -1,0 +1,69 @@
+version: 0.2
+
+env:
+  variables:
+    APP_NAME: "terraform-demo"
+
+phases:
+  install:
+    commands:
+      - echo "========================================"
+      - echo "INSTALL PHASE STARTED"
+      - echo "========================================"
+      - echo "Current Directory:"
+      - pwd
+      - echo "Python Version:"
+      - python3 --version
+      - echo "Upgrading pip..."
+      - python3 -m pip install --upgrade pip
+      - echo "Installing Python dependencies..."
+      - python3 -m pip install -r app/requirements.txt
+
+  pre_build:
+    commands:
+      - echo "========================================"
+      - echo "PRE-BUILD PHASE STARTED"
+      - echo "========================================"
+      - echo "Listing repository contents..."
+      - ls -la
+      - echo "Recursive directory structure..."
+      - ls -R
+
+      # Verify important files exist
+      - test -f buildspec.yml
+      - test -f appspec.yml
+      - test -f app/app.py
+      - test -f app/requirements.txt
+      - test -f scripts/install_dependencies.sh
+      - test -f scripts/deploy.sh
+      - test -f scripts/start.sh
+      - test -f scripts/stop.sh
+
+      - echo "All required files are present."
+
+  build:
+    commands:
+      - echo "========================================"
+      - echo "BUILD PHASE STARTED"
+      - echo "========================================"
+      - echo "Running Flask syntax validation..."
+      - python3 -m py_compile app/app.py
+      - echo "Application validation completed successfully."
+
+  post_build:
+    commands:
+      - echo "========================================"
+      - echo "POST BUILD PHASE STARTED"
+      - echo "========================================"
+      - echo "Preparing deployment artifact..."
+      - date
+      - echo "Build completed successfully."
+
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: no
+
+cache:
+  paths:
+    - '/root/.cache/pip/**/*'
