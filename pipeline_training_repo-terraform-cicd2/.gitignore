@@ -1,0 +1,32 @@
+cat > .gitignore <<EOF
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+*.pem
+
+!.terraform.lock.hcl
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+EOF
