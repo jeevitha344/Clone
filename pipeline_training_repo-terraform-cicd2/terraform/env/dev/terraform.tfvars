@@ -33,7 +33,7 @@ instance_type = "t3.micro"
 
 github_owner = "jeevitha344"
 
-github_repository = "Clone"
+github_repo = "Clone"
 
 github_branch = "terraform-cicd3"
 
