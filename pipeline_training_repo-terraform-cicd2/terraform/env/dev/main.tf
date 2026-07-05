@@ -171,7 +171,7 @@ module "cicd" {
   source = "../../modules/cicd"
 
   github_owner            = var.github_owner
-  github_repo             = var.github_repository
+  github_repo             = var.github_repo
   github_branch           = var.github_branch
   codestar_connection_arn = var.codestar_connection_arn
 
