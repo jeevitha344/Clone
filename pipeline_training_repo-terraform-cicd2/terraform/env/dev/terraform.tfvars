@@ -28,13 +28,13 @@ common_tags = {
 
 ami_id = "ami-0d351f1b760a30161"
 
-instance_type = "t2.micro"
+instance_type = "t3.micro"
 
 
-github_owner = "Meyi-Cloud"
+github_owner = "jeevitha344"
 
-github_repository = "pipeline_training_repo"
+github_repository = "Clone"
 
-github_branch = "terraform-cicd2"
+github_branch = "terraform-cicd3"
 
-codestar_connection_arn = "arn:aws:codeconnections:ap-south-1:369606757523:connection/680ffedd-c4e8-4ed1-9f9a-182ad5463704"
+codestar_connection_arn = "arn:aws:codeconnections:ap-south-1:302954731417:connection/7db2899e-f588-4e67-8d49-a376ba3dfe26"

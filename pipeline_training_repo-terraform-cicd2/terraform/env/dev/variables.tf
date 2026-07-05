@@ -41,7 +41,7 @@ variable "private_subnet_cidr" {
 variable "availability_zone_1" {
   description = "Availability Zone 1"
   type        = string
-} 
+}
 
 variable "availability_zone_2" {
   description = "Availability Zone 2"

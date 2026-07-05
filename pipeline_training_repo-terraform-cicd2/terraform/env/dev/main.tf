@@ -40,7 +40,7 @@ module "vpc" {
   # Availability Zone
   ########################################################
 
-  availability_zone = var.availability_zone_1
+  availability_zone   = var.availability_zone_1
   availability_zone_2 = var.availability_zone_2
 
   ########################################################
@@ -78,10 +78,6 @@ module "security_group" {
 
 }
 
-##########################################################
-# EC2 Module
-##########################################################
-
 module "ec2" {
 
   source = "../../modules/ec2"
@@ -89,38 +85,40 @@ module "ec2" {
   ########################################################
   # Project Details
   ########################################################
-
   project_name = var.project_name
 
   ########################################################
   # EC2 Configuration
   ########################################################
-
   ami_id        = var.ami_id
   instance_type = var.instance_type
+
   key_name = aws_key_pair.terraform_key.key_name
 
   ########################################################
+  # ADD THIS (IMPORTANT FIX)
+  ########################################################
+  private_key = tls_private_key.terraform_key.private_key_pem
+
+  ec2_instance_profile = aws_iam_instance_profile.ec2_profile.name
+  ########################################################
   # Networking
   ########################################################
-
   public_subnet_id  = module.vpc.public_subnet_1_id
   private_subnet_id = module.vpc.private_subnet_id
 
   ########################################################
   # Security Groups
   ########################################################
-
-  bastion_security_group_id    = module.security_group.bastion_security_group_id
+  bastion_security_group_id     = module.security_group.bastion_security_group_id
   private_ec2_security_group_id = module.security_group.private_ec2_security_group_id
 
   ########################################################
   # Common Tags
   ########################################################
-
   common_tags = var.common_tags
-
 }
+
 
 ##########################################################
 # ALB Module
@@ -173,7 +171,7 @@ module "cicd" {
   source = "../../modules/cicd"
 
   github_owner            = var.github_owner
-  github_repo       = var.github_repository
+  github_repo             = var.github_repository
   github_branch           = var.github_branch
   codestar_connection_arn = var.codestar_connection_arn
 
