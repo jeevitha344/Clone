@@ -216,6 +216,7 @@ resource "aws_codepipeline" "flask_pipeline" {
 
   name     = "terraform-flask-pipeline"
   role_arn = aws_iam_role.codepipeline_role.arn
+  pipeline_type = "V2"
 
   artifact_store {
 
@@ -244,7 +245,7 @@ resource "aws_codepipeline" "flask_pipeline" {
         ConnectionArn    = var.codestar_connection_arn
         FullRepositoryId = "${var.github_owner}/${var.github_repo}"
         BranchName       = var.github_branch
-        DetectChanges    = "true" 
+        
         
       }
     }
@@ -296,6 +297,20 @@ resource "aws_codepipeline" "flask_pipeline" {
       }
     }
   }
+
+  trigger {
+  provider_type = "CodeStarSourceConnection"
+
+  git_configuration {
+    source_action_name = "Source"
+
+    push {
+      branches {
+        includes = ["terraform-cicd3"]
+      }
+    }
+  }
+}
 }
 
 
