@@ -39,29 +39,32 @@ resource "aws_iam_role" "codepipeline_role" {
 }
 
 resource "aws_iam_role_policy" "codepipeline_policy" {
+
   name = "codepipeline-inline-policy"
   role = aws_iam_role.codepipeline_role.id
 
   policy = jsonencode({
+
     Version = "2012-10-17"
 
     Statement = [
+
       {
         Effect = "Allow"
+
         Action = [
           "s3:*",
           "codebuild:*",
-          "codedeploy:*"
+          "codedeploy:*",
+          "codeconnections:UseConnection",
+          "cloudwatch:*",
+          "logs:*",
+          "iam:PassRole"
         ]
+
         Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "codestar-connections:UseConnection"
-        ]
-        Resource = "arn:aws:codeconnections:ap-south-1:369606757523:connection/*"
       }
+
     ]
   })
 }
@@ -90,9 +93,38 @@ resource "aws_iam_role" "codebuild_role" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "codebuild_policy" {
-  role       = aws_iam_role.codebuild_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AWSCodeBuildDeveloperAccess"
+resource "aws_iam_role_policy" "codebuild_policy" {
+  name = "codebuild-inline-policy"
+  role = aws_iam_role.codebuild_role.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+
+    Statement = [
+      {
+        Effect = "Allow"
+
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+
+        Resource = "*"
+      },
+      {
+        Effect = "Allow"
+
+        Action = [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:PutObject"
+        ]
+
+        Resource = "*"
+      }
+    ]
+  })
 }
 
 # ==========================================================

@@ -42,3 +42,13 @@ variable "key_name" {
   description = "EC2 Key Pair Name"
   type        = string
 }
+
+variable "private_key" {
+  type      = string
+  sensitive = true
+}
+
+variable "ec2_instance_profile" {
+  description = "IAM Instance Profile for the Private EC2"
+  type        = string
+}
